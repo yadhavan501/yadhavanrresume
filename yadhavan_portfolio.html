@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yadhavan Gnanasekaran - Mechanical Engineer</title>
+    <link rel="stylesheet" href="portfolio_styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.4;
+            background: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        /* 5 Elements Particle System */
+        .element-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        /* Fire Particles */
+        .fire-particle {
+            position: absolute;
+            width: 4px;
+            height: 8px;
+            background: linear-gradient(180deg, #ff4500, #ff6b35, #ffaa00);
+            border-radius: 50% 50% 0 0;
+            animation: fireRise 3s infinite ease-out;
+            opacity: 0.8;
+        }
+        @keyframes fireRise {
+            0% { 
+                transform: translateY(100vh) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(-100px) scale(0.3) rotate(180deg);
+                opacity: 0;
+            }
+        }
+        /* Water Particles */
+        .water-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #00bfff, #1e90ff, #0066cc);
+            border-radius: 50%;
+            animation: waterFlow 4s infinite ease-in-out;
+            opacity: 0.6;
+        }
+        @keyframes waterFlow {
+            0%, 100% { 
+                transform: translateX(0) translateY(0) scale(1);
+                opacity: 0.6;
+            }
+            50% { 
+                transform: translateX(50px) translateY(-30px) scale(1.2);
+                opacity: 1;
+            }
+        }
+        /* Earth Particles */
+        .earth-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(45deg, #8b4513, #a0522d, #cd853f);
+            border-radius: 20%;
+            animation: earthRotate 6s infinite linear;
+            opacity: 0.7;
+        }
+        @keyframes earthRotate {
+            0% { transform: rotate(0deg) translateX(30px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(30px) rotate(-360deg); }
+        }
+        /* Air Particles */
+        .air-particle {
+            position: absolute;
+            width: 12px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #f0f8ff, transparent);
+            border-radius: 50px;
+            animation: airSwirl 5s infinite ease-in-out;
+            opacity: 0.4;
+        }
+        @keyframes airSwirl {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            25% { 
+                transform: translateY(-20px) rotate(90deg) scale(1.5);
+            }
+            50% { 
+                transform: translateY(-40px) rotate(180deg) scale(0.8);
+            }
+            75% { 
+                transform: translateY(-20px) rotate(270deg) scale(1.2);
+            }
+        }
+        /* Space Particles */
+        .space-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: radial-gradient(circle, #ffffff, #e6e6fa, #dda0dd);
+            border-radius: 50%;
+            animation: spaceTwinkle 2s infinite alternate;
+            opacity: 0.9;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        @keyframes spaceTwinkle {
+            0% { 
+                opacity: 0.3;
+                transform: scale(0.5);
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+            }
+            100% { 
+                opacity: 1;
+                transform: scale(1.5);
+                box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+            }
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+        /* Scrolling Text Animation like Workleads */
+        .scrolling-text {
+            white-space: nowrap;
+            overflow: hidden;
+            position: relative;
+            background: #111111;
+            padding: 2rem 0;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+        .scrolling-content {
+            display: inline-block;
+            animation: scroll-left 20s linear infinite;
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            color: rgba(255, 255, 255, 0.1);
+        }
+        @keyframes scroll-left {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+        /* Hero Section - Fire Element Theme */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: 
+                radial-gradient(ellipse at top, rgba(255, 69, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom left, rgba(255, 107, 53, 0.05) 0%, transparent 50%),
+                linear-gradient(135deg, #000000 0%, #1a0000 100%);
+            padding: 120px 0 80px;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 69, 0, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(255, 140, 0, 0.08) 0%, transparent 40%);
+            animation: fireGlow 8s ease-in-out infinite alternate;
+        }
+        @keyframes fireGlow {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 6rem;
+            align-items: center;
+            width: 100%;
+        }
+        .hero-text h1 {
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+            color: #ffffff;
+            letter-spacing: -0.05em;
+        }
+        .hero-text .highlight {
+            background: linear-gradient(135deg, #ffffff, #888888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 3rem;
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 600px;
+        }
+        .hero-photo {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+        .profile-image {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid #ffffff;
+            transition: transform 0.4s ease;
+        }
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+        .profile-placeholder {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #333, #666);
+            border: 8px solid #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: #ffffff;
+            font-weight: 900;
+        }
+        /* Button Styles for Different Sections */
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 1.5rem 3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: none;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        /* Primary CTA Button - Slide Effect */
+        .btn-primary {
+            background: #ffffff;
+            color: #000000;
+            position: relative;
+            z-index: 1;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            transition: left 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: -1;
+        }
+        .btn-primary:hover::before {
+            left: 0;
+        }
+        .btn-primary:hover {
+            color: #ffffff;
+        }
+        /* Secondary Button - Glow Effect */
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            position: relative;
+            overflow: visible;
+        }
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+        .btn-secondary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        .btn-secondary:hover {
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+        /* Accent Button - Fill from Bottom */
+        .btn-accent {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            position: relative;
+            z-index: 1;
+        }
+        .btn-accent::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: #ffffff;
+            transition: height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: -1;
+        }
+        .btn-accent:hover::before {
+            height: 100%;
+        }
+        .btn-accent:hover {
+            color: #000000;
+        }
+        /* Minimal Button - Underline Effect */
+        .btn-minimal {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 1rem 0;
+            border: none;
+            border-bottom: 2px solid transparent;
+            position: relative;
+        }
+        .btn-minimal::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ffffff;
+            transition: width 0.4s ease;
+        }
+        .btn-minimal:hover::after {
+            width: 100%;
+        }
+        .btn-minimal:hover {
+            color: #ffffff;
+        }
+        /* Ghost Button - Border Morph */
+        .btn-ghost {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            transition: all 0.4s ease;
+        }
+        .btn-ghost::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .btn-ghost:hover::before {
+            opacity: 1;
+            animation: borderSpin 1s linear infinite;
+        }
+        .btn-ghost:hover {
+            border-color: #ffffff;
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+        @keyframes borderSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* Magnetic Button - 3D Effect */
+        .btn-magnetic {
+            background: #ffffff;
+            color: #000000;
+            transform-style: preserve-3d;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        .btn-magnetic:hover {
+            transform: translateY(-10px) rotateX(15deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        /* Split Button - Diagonal Fill */
+        .btn-split {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            position: relative;
+            z-index: 1;
+        }
+        .btn-split::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            transform: skewX(-15deg);
+            transition: left 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: -1;
+        }
+        .btn-split:hover::before {
+            left: 0;
+        }
+        .btn-split:hover {
+            color: #000000;
+        }
+        /* Ripple Button */
+        .btn-ripple {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-ripple::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.6s ease;
+        }
+        .btn-ripple:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+        .btn-ripple:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #ffffff;
+        }
+        /* About Section - Water Element Theme */
+        .big-title-section {
+            padding: 8rem 0;
+            background: 
+                radial-gradient(ellipse at center, rgba(0, 191, 255, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, #000814 0%, #001d3d 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .big-title-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(30, 144, 255, 0.1) 0%, transparent 60%),
+                radial-gradient(circle at 70% 60%, rgba(0, 102, 204, 0.08) 0%, transparent 60%);
+            animation: waterRipple 6s ease-in-out infinite;
+        }
+        @keyframes waterRipple {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg);
+                opacity: 0.5;
+            }
+            50% { 
+                transform: scale(1.1) rotate(2deg);
+                opacity: 0.8;
+            }
+        }
+        .big-title {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 900;
+            line-height: 0.9;
+            color: #ffffff;
+            letter-spacing: -0.05em;
+            margin-bottom: 3rem;
+        }
+        .big-subtitle {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 4rem;
+            max-width: 800px;
+        }
+        /* Stats Section - Space Element Theme */
+        .stats-section {
+            background: 
+                radial-gradient(ellipse at center, rgba(221, 160, 221, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(138, 43, 226, 0.08) 0%, transparent 40%),
+                linear-gradient(180deg, #0a0a0a 0%, #1a0a1a 100%);
+            padding: 8rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 85% 85%, rgba(230, 230, 250, 0.05) 0%, transparent 25%),
+                radial-gradient(circle at 50% 50%, rgba(221, 160, 221, 0.02) 0%, transparent 30%);
+            animation: starField 10s linear infinite;
+        }
+        @keyframes starField {
+            0% { transform: rotate(0deg) scale(1); }
+            100% { transform: rotate(360deg) scale(1.1); }
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4rem;
+            text-align: center;
+        }
+        .stat-item {
+            padding: 3rem 2rem;
+            background: #000000;
+            border: 1px solid #333;
+            transition: transform 0.3s ease;
+        }
+        .stat-item:hover {
+            transform: translateY(-10px);
+        }
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #ffffff;
+            display: block;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        .stat-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        /* Projects Section - Earth Element Theme */
+        .projects-section {
+            background: 
+                radial-gradient(ellipse at center, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #0a0600 0%, #1a1000 100%);
+            padding: 8rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .projects-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(160, 82, 45, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 75% 75%, rgba(205, 133, 63, 0.06) 0%, transparent 40%);
+            animation: earthShift 12s ease-in-out infinite alternate;
+        }
+        @keyframes earthShift {
+            0% { 
+                transform: translateX(-5px) scale(1);
+                opacity: 0.4;
+            }
+            100% { 
+                transform: translateX(5px) scale(1.02);
+                opacity: 0.7;
+            }
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+        .project-card {
+            background: #111111;
+            padding: 4rem 3rem;
+            border: 1px solid #333;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+        .project-card:hover::before {
+            left: 100%;
+        }
+        .project-card:hover {
+            transform: translateY(-15px);
+            border-color: #ffffff;
+        }
+        .project-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+        .project-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+        }
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .tech-tag {
+            background: #ffffff;
+            color: #000000;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        /* Experience Section - Air Element Theme */
+        .experience-section {
+            background: 
+                radial-gradient(ellipse at center, rgba(240, 248, 255, 0.05) 0%, transparent 50%),
+                linear-gradient(135deg, #000510 0%, #001020 100%);
+            padding: 8rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .experience-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 40%, rgba(240, 248, 255, 0.03) 50%, transparent 60%),
+                linear-gradient(-45deg, transparent 40%, rgba(173, 216, 230, 0.02) 50%, transparent 60%);
+            animation: airFlow 8s ease-in-out infinite;
+        }
+        @keyframes airFlow {
+            0%, 100% { 
+                transform: translateY(0) skewY(0deg);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translateY(-10px) skewY(1deg);
+                opacity: 0.6;
+            }
+        }
+        .timeline {
+            max-width: 1000px;
+            margin: 4rem auto 0;
+        }
+        .timeline-item {
+            padding: 4rem 0;
+            border-bottom: 1px solid #333;
+            position: relative;
+        }
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+        .timeline-content {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 4rem;
+            align-items: flex-start;
+        }
+        .timeline-date {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .timeline-details h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+        .timeline-company {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+        .timeline-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        /* Skills Section - All Elements Combined */
+        .skills-section {
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(255, 69, 0, 0.05) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 80%, rgba(0, 191, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 10%, rgba(139, 69, 19, 0.05) 0%, transparent 40%),
+                radial-gradient(ellipse at 10% 80%, rgba(240, 248, 255, 0.03) 0%, transparent 40%),
+                radial-gradient(ellipse at 90% 20%, rgba(221, 160, 221, 0.05) 0%, transparent 40%),
+                linear-gradient(135deg, #000000 0%, #0a0a0a 100%);
+            padding: 8rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .skills-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                conic-gradient(from 0deg, 
+                    rgba(255, 69, 0, 0.1) 0deg,
+                    rgba(0, 191, 255, 0.1) 72deg,
+                    rgba(139, 69, 19, 0.1) 144deg,
+                    rgba(240, 248, 255, 0.1) 216deg,
+                    rgba(221, 160, 221, 0.1) 288deg,
+                    rgba(255, 69, 0, 0.1) 360deg);
+            animation: elementalRotation 20s linear infinite;
+            opacity: 0.3;
+        }
+        @keyframes elementalRotation {
+            0% { transform: rotate(0deg) scale(1); }
+            100% { transform: rotate(360deg) scale(1.1); }
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+        .skill-category {
+            background: #111111;
+            padding: 3rem;
+            border: 1px solid #333;
+            transition: transform 0.3s ease;
+        }
+        .skill-category:hover {
+            transform: translateY(-10px);
+        }
+        .skill-category h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .skill-item {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .skill-item:hover {
+            background: #ffffff;
+            color: #000000;
+        }
+        /* Contact Section - Space Element Theme */
+        .contact-section {
+            background: 
+                radial-gradient(ellipse at center, rgba(75, 0, 130, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, rgba(138, 43, 226, 0.08) 0%, transparent 40%),
+                linear-gradient(180deg, #000000 0%, #1a0a1a 100%);
+            padding: 8rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(230, 230, 250, 0.03) 0%, transparent 30%),
+                radial-gradient(circle at 60% 40%, rgba(221, 160, 221, 0.02) 0%, transparent 30%);
+            animation: cosmicPulse 8s ease-in-out infinite alternate;
+        }
+        @keyframes cosmicPulse {
+            0% { 
+                opacity: 0.4;
+                transform: scale(1);
+            }
+            100% { 
+                opacity: 0.8;
+                transform: scale(1.02);
+            }
+        }
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .contact-description {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 4rem;
+            line-height: 1.6;
+        }
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        /* Footer */
+        footer {
+            background: #000000;
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+        .footer-text {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1rem;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+            .hero-photo {
+                order: -1;
+            }
+            .profile-image,
+            .profile-placeholder {
+                width: 300px;
+                height: 300px;
+                font-size: 4rem;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            .timeline-content {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            .scrolling-content {
+                font-size: 2rem;
+            }
+        }
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="element-particles"></div>
+
+    <nav>
+        <div class="container">
+            <div class="logo">Yadhavan</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content fade-in-up">
+                <div class="hero-text">
+                    <h1>
+                        <span class="highlight">YADHAVAN</span><br>
+                        GNANASEKARAN
+                    </h1>
+                    <p class="hero-subtitle">
+                        Final-year Mechanical Engineering student specializing in CAD design, 3D modeling, and automotive systems. Passionate about robotics, manufacturing processes, and creating solutions that bridge design with real-world applications.
+                    </p>
+                    <a href="#contact" class="btn btn-primary">Let's Connect</a>
+                </div>
+            <div class="center-text-margin">
+                <a href="#contact" class="btn btn-magnetic scroll-reveal">Download Resume</a>
+            </div>
+            <div class="center-text-margin">
+                <a href="#skills" class="btn btn-minimal scroll-reveal">Explore All Projects</a>
+            </div>
+                <div class="hero-photo">
+                    <img src="https://i.imgur.com/placeholder.jpg" alt="Yadhavan Gnanasekaran" class="profile-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="profile-placeholder profile-placeholder-flex">YG</div>
+                </div>AooooAKKKKACiiig
+            </div>
+        </div>
+    </section>
+    <div class="scrolling-text">
+        <div class="scrolling-content">
+            MECHANICAL ENGINEER • CAD SPECIALIST • ROBOTICS • INNOVATION • AUTOMOTIVE • MECHANICAL ENGINEER • CAD SPECIALIST • ROBOTICS • INNOVATION • AUTOMOTIVE • 
+        </div>
+    </div>
+    <section id="about" class="big-title-section">
+        <div class="container">
+            <h2 class="big-title scroll-reveal">
+                Engineering<br>
+                <span class="rgba-white-03">Excellence</span>
+            </h2>
+            <p class="big-subtitle scroll-reveal">
+                Based in Chennai, Tamil Nadu. Bridging theoretical knowledge with practical implementation through hands-on experience in die casting, robotics, and automotive design.
+            </p>
+            <a href="#projects" class="btn btn-secondary scroll-reveal">View My Work</a>
+        </div>
+    </section>
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid scroll-reveal">
+                <div class="stat-item">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">Certifications</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">03</span>
+                    <span class="stat-label">Major Projects</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">02</span>
+                    <span class="stat-label">Internships</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">01</span>
+                    <span class="stat-label">Award Won</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="projects" class="projects-section">
+        <div class="container">
+            <h2 class="big-title scroll-reveal">
+                Featured<br>
+                <span class="rgba-white-03">Projects</span>
+            </h2>
+
+            <div class="project-grid">
+                <div class="project-card scroll-reveal">
+                    <h3 class="project-title">CraftCrew Smart Glass Cleaning Robot</h3>
+                    <p class="project-description">
+                        Award-winning autonomous glass cleaning robot developed with innovative mechanical design, prototyping, and system integration. Recognized by Meenakshi Sundararajan Engineering College.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Robotics</span>
+                        <span class="tech-tag">AutoCAD</span>
+                        <span class="tech-tag">SolidWorks</span>
+                        <span class="tech-tag">IoT</span>
+                    </div>
+                    <a href="#" class="btn btn-accent margin-top-2rem">Case Study</a>
+                </div>
+
+                <div class="project-card scroll-reveal">
+                    <h3 class="project-title">BAJA Competition Vehicle</h3>
+                    <p class="project-description">
+                        Torque-X team member designing mechanical components for off-road vehicles. Specialized in rollcage fabrication using TIG welding and 3D modeling simulations.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">SolidWorks</span>
+                        <span class="tech-tag">TIG Welding</span>
+                        <span class="tech-tag">Simulation</span>
+                        <span class="tech-tag">Automotive</span>
+                    </div>
+                    <a href="#" class="btn btn-ghost margin-top-2rem">Learn More</a>
+                </div>
+
+                <div class="project-card scroll-reveal">
+                    <h3 class="project-title">FMAE BAJA 2026 Steering System</h3>
+                    <p class="project-description">
+                        Upcoming role as Steering Subsystem Designer responsible for complete system design and optimization using advanced CAD tools for optimal vehicle handling.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">CAD Design</span>
+                        <span class="tech-tag">System Design</span>
+                        <span class="tech-tag">Competition</span>
+                        <span class="tech-tag">Innovation</span>
+                    </div>
+                    <a href="#" class="btn btn-split margin-top-2rem">Coming Soon</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="experience" class="experience-section">
+        <div class="container">
+            <h2 class="big-title scroll-reveal">
+                Professional<br>
+                <span class="rgba-white-03">Experience</span>
+            </h2>
+
+            <div class="timeline">
+                <div class="timeline-item scroll-reveal">
+                    <div class="timeline-content">
+                        <div class="timeline-date">July 2025</div>
+                        <div class="timeline-details">
+                            <h3>Manufacturing Intern</h3>
+                            <div class="timeline-company">Sri Balaji Castings Private Limited, Chennai</div>
+                            <p class="timeline-description">
+                                Gained intensive experience in aluminum gravity and high-pressure die casting processes. Worked in quality department using CMM for precision measurement and conducting leak tests on automotive components.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item scroll-reveal">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Jun-Aug 2024</div>
+                        <div class="timeline-details">
+                            <h3>Technology Intern</h3>
+                            <div class="timeline-company">Pranav Solution, Krishnagiri</div>
+                            <p class="timeline-description">
+                                Hands-on experience in LED lights assembling and designing technology. Focused on component integration, design precision, and real-world engineering applications.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item scroll-reveal">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025</div>
+                        <div class="timeline-details">
+                            <h3>Event Coordinator</h3>
+                            <div class="timeline-company">Meenakshi Sundararajan Engineering College</div>
+                            <p class="timeline-description">
+                                Coordinated YANTRA 2k25 Mechanical Symposium and volunteered for 30-hour hackathon, supporting technical setup and participant assistance.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <h2 class="big-title scroll-reveal">
+                Technical<br>
+                <span class="rgba-white-03">Skills</span>
+            </h2>
+
+            <div class="skills-grid">
+                <div class="skill-category scroll-reveal">
+                    <h3>Design & CAD</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">SolidWorks</span>
+                        <span class="skill-item">AutoCAD</span>
+                        <span class="skill-item">3D Modeling</span>
+                        <span class="skill-item">GD&T</span>
+                        <span class="skill-item">Simulation</span>
+                    </div>
+                </div>
+
+                <div class="skill-category scroll-reveal">
+                    <h3>Manufacturing</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">Die Casting</span>
+                        <span class="skill-item">CNC Operations</span>
+                        <span class="skill-item">VMC Operations</span>
+                        <span class="skill-item">Quality Control</span>
+                        <span class="skill-item">CMM</span>
+                    </div>
+                </div>
+
+                <div class="skill-category scroll-reveal">
+                    <h3>Technology</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">MATLAB</span>
+                        <span class="skill-item">MongoDB</span>
+                        <span class="skill-item">IoT</span>
+                        <span class="skill-item">Programming</span>
+                        <span class="skill-item">Software Architecture</span>
+                    </div>
+                </div>
+
+                <div class="skill-category scroll-reveal">
+                    <h3>Fabrication</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">TIG Welding</span>
+                        <span class="skill-item">Notching</span>
+                        <span class="skill-item">LED Assembly</span>
+                        <span class="skill-item">Prototyping</span>
+                        <span class="skill-item">Integration</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <h2 class="big-title scroll-reveal">
+                    Let's<br>
+                    <span class="rgba-white-03">Connect</span>
+                </h2>
+                <p class="contact-description scroll-reveal">
+                    Ready to collaborate on innovative engineering projects or discuss opportunities in automotive, robotics, manufacturing, or IoT engineering.
+                </p>
+                <div class="contact-links scroll-reveal">
+                    <a href="mailto:your.email@example.com" class="btn btn-primary">Email Me</a>
+                    <a href="tel:+91XXXXXXXXXX" class="btn btn-secondary">Call Me</a>
+                    <a href="#" class="btn btn-ripple">LinkedIn</a>
+                    <a href="#" class="btn btn-accent">Resume</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p class="footer-text">© 2025 Yadhavan Gnanasekaran • Engineered with Passion</p>
+        </div>
+    </footer>
+    <script>
+        // 5 Elements Particle System
+        function createElementalParticles() {
+            const particles = document.querySelector('.element-particles');
+            const windowHeight = window.innerHeight;
+            const windowWidth = window.innerWidth;
+
+            // Create Fire Particles
+            for (let i = 0; i < 8; i++) {
+                const fire = document.createElement('div');
+                fire.className = 'fire-particle';
+                fire.style.left = Math.random() * windowWidth + 'px';
+                fire.style.animationDelay = Math.random() * 3 + 's';
+                fire.style.animationDuration = (2 + Math.random() * 2) + 's';
+                particles.appendChild(fire);
+            }
+
+            // Create Water Particles
+            for (let i = 0; i < 12; i++) {
+                const water = document.createElement('div');
+                water.className = 'water-particle';
+                water.style.left = Math.random() * windowWidth + 'px';
+                water.style.top = Math.random() * windowHeight + 'px';
+                water.style.animationDelay = Math.random() * 4 + 's';
+                particles.appendChild(water);
+            }
+
+            // Create Earth Particles
+            for (let i = 0; i < 6; i++) {
+                const earth = document.createElement('div');
+                earth.className = 'earth-particle';
+                earth.style.left = Math.random() * windowWidth + 'px';
+                earth.style.top = Math.random() * windowHeight + 'px';
+                earth.style.animationDelay = Math.random() * 6 + 's';
+                particles.appendChild(earth);
+            }
+
+            // Create Air Particles
+            for (let i = 0; i < 10; i++) {
+                const air = document.createElement('div');
+                air.className = 'air-particle';
+                air.style.left = Math.random() * windowWidth + 'px';
+                air.style.top = Math.random() * windowHeight + 'px';
+                air.style.animationDelay = Math.random() * 5 + 's';
+                particles.appendChild(air);
+            }
+
+            // Create Space Particles
+            for (let i = 0; i < 15; i++) {
+                const space = document.createElement('div');
+                space.className = 'space-particle';
+                space.style.left = Math.random() * windowWidth + 'px';
+                space.style.top = Math.random() * windowHeight + 'px';
+                space.style.animationDelay = Math.random() * 2 + 's';
+                particles.appendChild(space);
+            }
+        }
+
+        // Initialize particles
+        createElementalParticles();
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                nav.style.background = 'rgba(0, 0, 0, 0.9)';
+            }
+        });
+    </script>
+</body>
+</html>

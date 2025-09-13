@@ -1,0 +1,14 @@
+/* External styles for yadhavan_portfolio.html */
+.center-text-margin {
+    text-align: center;
+    margin-top: 4rem;
+}
+.profile-placeholder-flex {
+    display: flex;
+}
+.rgba-white-03 {
+    color: rgba(255,255,255,0.3);
+}
+.margin-top-2rem {
+    margin-top: 2rem;
+}
